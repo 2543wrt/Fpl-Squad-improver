@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FPL Squad Improver</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div id="app">
+    <header class="app-header">
+      <h1>FPL Squad Improver</h1>
+      <p class="subtitle">Optimize your fantasy team with data-driven insights</p>
+    </header>
+
+    <main>
+      <section id="login-section" class="glass-panel">
+        <h2>Link Your Team</h2>
+        <p>Enter your FPL Manager ID to get started.</p>
+        <div class="input-group">
+          <input type="number" id="manager-id-input" placeholder="e.g., 123456" />
+          <button id="load-team-btn" class="primary-btn">Load Team</button>
+        </div>
+        <p id="error-message" class="error hidden"></p>
+      </section>
+
+      <section id="dashboard-section" class="hidden">
+        <div class="dashboard-grid">
+          <div class="squad-container glass-panel">
+            <h2>Current Squad</h2>
+            <div id="squad-list" class="player-list">
+              <!-- Players will be injected here -->
+            </div>
+          </div>
+
+          <div class="suggestions-container glass-panel">
+            <h2>Improvement Suggestions</h2>
+            <div id="suggestions-list" class="suggestion-list">
+              <!-- Suggestions will be injected here -->
+              <p class="placeholder-text">Select a player to see replacement options.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+
+</html>

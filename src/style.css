@@ -1,0 +1,582 @@
+:root {
+  /* Premium White Palette */
+  --bg-color: #fff;
+  --surface-color: #ffffff;
+  --primary-color: #003399; /* Royal Blue */
+  --accent-color: #05f26c; /* FPL Green */
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+  --border-color: #e2e8f0;
+  --danger: #ef4444;
+  --success: #10b981;
+  
+  
+  --font-family: 'Nunito Sans', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  overflow-x: hidden;
+  line-height: 1.5;
+}
+
+#app {
+  width: 100%;
+  max-width: 1200px;
+  padding: 3rem 2rem;
+}
+
+.app-header {
+  text-align: center;
+  margin-bottom: 4rem;
+  animation: fadeInDown 0.6s ease-out;
+}
+
+.app-header h1 {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: var(--text-main);
+  letter-spacing: -0.02em;
+  margin-bottom: 0.2rem;
+}
+
+.subtitle {
+  color: var(--text-muted);
+  font-size: 1.2rem;
+  font-weight: 300;
+}
+
+/* Cards & Panels */
+.glass-panel {
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 2.5rem;
+  box-shadow: var(--shadow-md);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.glass-panel:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+/* Login Section */
+#login-section {
+  max-width: 480px;
+  margin: 0 auto;
+  text-align: center;
+  animation: fadeInUp 0.6s ease-out 0.1s backwards;
+}
+
+#login-section h2 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-main);
+}
+
+#login-section p {
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+}
+
+.input-group {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+input {
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  color: var(--text-main);
+  font-family: inherit;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  width: 100%;
+  max-width: 200px;
+}
+
+input:focus {
+  border-color: var(--primary-color);
+}
+
+.primary-btn {
+  background-color: var(--primary-color);
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+  box-shadow: var(--shadow-sm);
+}
+
+.primary-btn:hover {
+  background-color: #00287a; /* Darker shade of primary */
+  transform: translateY(-1px);
+}
+
+.primary-btn:active {
+  transform: translateY(0);
+}
+
+.error {
+  color: var(--danger);
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  background: rgba(239, 68, 68, 0.1);
+  padding: 0.5rem;
+  border-radius: 6px;
+  display: inline-block;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Dashboard */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+@media (max-width: 768px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.dashboard-grid h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1.1rem;
+  color: var(--text-main);
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 1rem;
+}
+
+.player-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.player-card {
+  background: var(--surface-color);
+  padding: 1rem 1.25rem;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid var(--border-color);
+  transition: all 0.2s;
+  cursor: default;
+}
+
+.player-card:hover {
+  border-color: var(--primary-color);
+  background-color: #f8fafc;
+}
+
+.player-info h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 0.25rem;
+}
+
+.player-meta {
+  
+  --font-family: 'Nunito Sans', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  overflow-x: hidden;
+  line-height: 1.5;
+}
+
+#app {
+  width: 100%;
+  max-width: 1200px;
+  padding: 3rem 2rem;
+}
+
+.app-header {
+  text-align: center;
+  margin-bottom: 4rem;
+  animation: fadeInDown 0.6s ease-out;
+}
+
+.app-header h1 {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: var(--text-main);
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  color: var(--text-muted);
+  font-size: 1.2rem;
+  font-weight: 300;
+}
+
+/* Cards & Panels */
+.glass-panel {
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 2.5rem;
+  box-shadow: var(--shadow-md);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.glass-panel:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+/* Login Section */
+#login-section {
+  max-width: 480px;
+  margin: 0 auto;
+  text-align: center;
+  animation: fadeInUp 0.6s ease-out 0.1s backwards;
+}
+
+#login-section h2 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-main);
+}
+
+#login-section p {
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+}
+
+.input-group {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+input {
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  color: var(--text-main);
+  font-family: inherit;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  width: 100%;
+  max-width: 200px;
+}
+
+input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(0, 51, 153, 0.1);
+}
+
+.primary-btn {
+  background-color: var(--primary-color);
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+  box-shadow: var(--shadow-sm);
+}
+
+.primary-btn:hover {
+  background-color: #00287a; /* Darker shade of primary */
+  transform: translateY(-1px);
+}
+
+.primary-btn:active {
+  transform: translateY(0);
+}
+
+.error {
+  color: var(--danger);
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  background: rgba(239, 68, 68, 0.1);
+  padding: 0.5rem;
+  border-radius: 6px;
+  display: inline-block;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Dashboard */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+@media (max-width: 768px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.dashboard-grid h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--text-main);
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 1rem;
+}
+
+.player-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.player-card {
+  background: var(--surface-color);
+  padding: 1rem 1.25rem;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid var(--border-color);
+  transition: all 0.2s;
+  cursor: default;
+}
+
+.player-card:hover {
+  border-color: var(--primary-color);
+  background-color: #f8fafc;
+}
+
+.player-info h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 0.25rem;
+}
+
+.player-meta {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* Pitch Layout */
+.pitch {
+  background: linear-gradient(0deg, #2c8f55 0%, #46a06b 100%);
+  border-radius: 12px;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  gap: 2rem;
+  position: relative;
+  border: 4px solid #fff;
+  box-shadow: inset 0 0 20px rgba(0,0,0,0.2);
+  min-height: 700px;
+}
+
+/* Pitch markings (simple lines) */
+.pitch::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: rgba(255,255,255,0.4);
+  transform: translateY(-50%);
+}
+
+.pitch::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100px;
+  height: 100px;
+  border: 2px solid rgba(255,255,255,0.4);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.pitch-row {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  z-index: 1;
+}
+
+/* Player Card on Pitch */
+.pitch .player-card {
+  flex-direction: column;
+  background: transparent;
+  border: none;
+  padding: 0;
+  width: 90px;
+  text-align: center;
+  box-shadow: none;
+}
+
+.pitch .player-card:hover {
+  background: transparent;
+  transform: scale(1.1);
+}
+
+.pitch .player-info-container {
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.pitch .player-info-container img {
+  width: 60px;
+  height: 60px;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.pitch .player-info {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.pitch .player-info h3 {
+  font-size: 0.8rem;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pitch .player-meta {
+  display: none; /* Hide team/pos on pitch to save space */
+}
+
+.pitch .player-points {
+  background: #38bdf8;
+  color: #fff;
+  font-size: 0.8rem;
+  padding: 0.1rem 0.4rem;
+  border-radius: 10px;
+  margin-top: -5px;
+  position: relative;
+  z-index: 2;
+  display: inline-block;
+}
+
+/* Bench */
+.bench {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: rgba(0,0,0,0.03);
+  border-radius: 12px;
+}
+
+.bench h3 {
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.bench-row {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.bench .player-card {
+  flex-direction: column;
+  width: 80px;
+  text-align: center;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.bench .player-info-container {
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.bench img {
+  width: 50px;
+  height: 50px;
+  opacity: 0.8;
+}
+
+.bench .player-info h3 {
+  font-size: 0.75rem;
+}
+
+.bench .player-meta, .bench .player-points {
+  font-size: 0.7rem;
+}
+
+/* Suggestions */
+.suggestion-header {
+  background: #fff1f2; /* Light red bg for alert */
+  border: 1px solid #fecdd3;
+  color: #9f1239;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+}
+
+.suggestion-card .player-points {
+  color: var(--success);
+ 
+}
+
+/* Animations */
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
