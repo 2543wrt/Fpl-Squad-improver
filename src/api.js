@@ -1,43 +1,67 @@
 export const API_BASE = '/api';
 
-export async function getBootstrapStatic() {
-  try {
-    const response = await fetch(`${API_BASE}/bootstrap-static/`);
-    if (!response.ok) throw new Error('Failed to fetch static data');
-    return await response.json();
-  } catch (error) {
-    console.error('Error fetching bootstrap static:', error);
-    throw error;
+/**
+ * Custom error class for FPL API errors
+ */
+export class FPLError extends Error {
+  constructor(message, status) {
+    super(message);
+    this.name = 'FPLError';
+    this.status = status;
   }
 }
 
-export async function getManagerTeam(managerId) {
-  try {
-    // Fetch current gameweek first to know which picks to get
-    // For simplicity in this prototype, we'll assume the current active event
-    // In a real app, we'd check 'events' from bootstrap-static first
-    
-    // Note: The endpoint for a manager's team for a specific event is /entry/{id}/event/{event}/picks/
-    // But to get just the current squad, we often need to know the current GW.
-    // Let's try to fetch the manager's general info first to validate ID.
-    const managerRes = await fetch(`${API_BASE}/entry/${managerId}/`);
-    if (!managerRes.ok) throw new Error('Manager not found');
-    const managerData = await managerRes.json();
-
-    // Get current GW from manager data summary or bootstrap
-    const currentEvent = managerData.current_event;
-
-    if (!currentEvent) {
-        throw new Error("No active event found for this manager.");
-    }
-
-    const picksRes = await fetch(`${API_BASE}/entry/${managerId}/event/${currentEvent}/picks/`);
-    if (!picksRes.ok) throw new Error('Failed to fetch team picks');
-    const picksData = await picksRes.json();
-
-    return { manager: managerData, picks: picksData };
-  } catch (error) {
-    console.error('Error fetching manager team:', error);
-    throw error;
+async function apiFetch(path) {
+  const response = await fetch(`${API_BASE}${path}`);
+  if (!response.ok) {
+    throw new FPLError(`API error on ${path}`, response.status);
   }
+  return response.json();
+}
+
+/**
+ * Fetches all bootstrap static data: players, teams, events, element types.
+ */
+export async function getBootstrapStatic() {
+  return apiFetch('/bootstrap-static/');
+}
+
+/**
+ * Fetches a manager's general info, current GW picks, and live GW points.
+ * Returns { manager, picks, livePoints }
+ */
+export async function getManagerTeam(managerId) {
+  // 1. Manager info
+  const manager = await apiFetch(`/entry/${managerId}/`).catch(() => {
+    throw new FPLError('Manager not found. Please check your ID.', 404);
+  });
+
+  const currentEvent = manager.current_event;
+  if (!currentEvent) {
+    throw new FPLError('No active gameweek found for this manager.', 400);
+  }
+
+  // 2. Picks for current GW
+  const picks = await apiFetch(`/entry/${managerId}/event/${currentEvent}/picks/`).catch(() => {
+    throw new FPLError('Could not load team picks for the current gameweek.', 500);
+  });
+
+  // 3. Live GW data for real-time points
+  const liveData = await apiFetch(`/event/${currentEvent}/live/`).catch(() => null);
+
+  return { manager, picks, liveData };
+}
+
+/**
+ * Fetches a manager's season history (past seasons + GW history).
+ */
+export async function getManagerHistory(managerId) {
+  return apiFetch(`/entry/${managerId}/history/`).catch(() => null);
+}
+
+/**
+ * Fetches upcoming fixtures for all teams.
+ */
+export async function getFixtures() {
+  return apiFetch('/fixtures/?future=1').catch(() => []);
 }

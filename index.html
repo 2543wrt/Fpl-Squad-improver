@@ -5,50 +5,214 @@
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FPL Squad Improver</title>
+  <title>FPL Squad Improver – Data-Driven Fantasy Football</title>
+  <meta name="description"
+    content="Analyse your Fantasy Premier League squad and get AI-powered transfer suggestions to climb the rankings." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800&display=swap"
+    rel="stylesheet">
 </head>
 
 <body>
+
+  <!-- Global loading overlay -->
+  <div id="global-loading" class="global-loading">
+    <div class="global-spinner">
+      <div class="spinner-ring"></div>
+      <p>Connecting to FPL API…</p>
+    </div>
+  </div>
+
   <div id="app">
+
+    <!-- ── Header ─────────────────────────────────────────── -->
     <header class="app-header">
-      <h1>FPL Squad Improver</h1>
-      <p class="subtitle">Optimize your fantasy team with data-driven insights</p>
+      <div class="header-logo">
+        <div class="logo-icon">
+          <img src="/src/assets/logo.png" alt="FPL Squad Improver Logo" />
+        </div>
+        <div class="header-text">
+          <h1>FPL <span class="accent">Squad</span> Improver</h1>
+          <p class="subtitle">Data-driven transfer intelligence</p>
+        </div>
+      </div>
     </header>
 
     <main>
-      <section id="login-section" class="glass-panel">
-        <h2>Link Your Team</h2>
-        <p>Enter your FPL Manager ID to get started.</p>
-        <div class="input-group">
-          <input type="number" id="manager-id-input" placeholder="e.g., 123456" />
-          <button id="load-team-btn" class="primary-btn">Load Team</button>
+
+      <!-- ── Login Section ──────────────────────────────────── -->
+      <section id="login-section" class="login-section">
+        <div class="login-card">
+          <div class="login-badge">BETA</div>
+          <h2>Analyse Your Squad</h2>
+          <p>Enter your FPL Manager ID to unlock personalised transfer suggestions, squad stats, and fixture analysis.
+          </p>
+
+          <div class="input-group">
+            <div class="input-wrap">
+              <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+              <input type="number" id="manager-id-input" placeholder="e.g. 1234567" min="1" />
+            </div>
+            <button id="load-team-btn" class="primary-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="5 12 12 5 19 12" />
+                <polyline points="5 19 12 12 19 19" />
+              </svg>
+              Analyse Team
+            </button>
+          </div>
+
+          <p id="error-message" class="error hidden"></p>
+
+          <div class="login-hint">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="12" y1="8" x2="12" y2="12" />
+              <line x1="12" y1="16" x2="12.01" y2="16" />
+            </svg>
+            Find your ID at <strong>fantasy.premierleague.com → Points → Share</strong>
+          </div>
+
+          <div class="feature-pills">
+            <span class="feature-pill"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2.5">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+              </svg> Live GW Points</span>
+            <span class="feature-pill"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2">
+                <polyline points="17 1 21 5 17 9" />
+                <path d="M3 11V9a4 4 0 0 1 4-4h14" />
+                <polyline points="7 23 3 19 7 15" />
+                <path d="M21 13v2a4 4 0 0 1-4 4H3" />
+              </svg> Smart Transfers</span>
+            <span class="feature-pill"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2">
+                <line x1="18" y1="20" x2="18" y2="10" />
+                <line x1="12" y1="20" x2="12" y2="4" />
+                <line x1="6" y1="20" x2="6" y2="14" />
+              </svg> Squad Stats</span>
+            <span class="feature-pill"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                <line x1="16" y1="2" x2="16" y2="6" />
+                <line x1="8" y1="2" x2="8" y2="6" />
+                <line x1="3" y1="10" x2="21" y2="10" />
+              </svg> Fixture FDR</span>
+          </div>
         </div>
-        <p id="error-message" class="error hidden"></p>
       </section>
 
+      <!-- ── Dashboard Section ──────────────────────────────── -->
       <section id="dashboard-section" class="hidden">
-        <div class="dashboard-grid">
-          <div class="squad-container glass-panel">
-            <h2>Current Squad</h2>
-            <div id="squad-list" class="player-list">
-              <!-- Players will be injected here -->
+
+        <!-- Manager bar -->
+        <div class="manager-bar">
+          <div class="manager-identity">
+            <div class="manager-avatar">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
             </div>
+            <div>
+              <div id="manager-name" class="manager-name">—</div>
+              <div id="manager-team-name" class="manager-team-name">—</div>
+            </div>
+          </div>
+          <div class="manager-stats">
+            <div class="manager-stat">
+              <span class="manager-stat-value" id="manager-gw-points">—</span>
+              <span class="manager-stat-label">GW Pts</span>
+            </div>
+            <div class="manager-stat-divider"></div>
+            <div class="manager-stat">
+              <span class="manager-stat-value" id="manager-total-points">—</span>
+              <span class="manager-stat-label">Total Pts</span>
+            </div>
+            <div class="manager-stat-divider"></div>
+            <div class="manager-stat">
+              <span class="manager-stat-value" id="manager-rank">—</span>
+              <span class="manager-stat-label">Rank</span>
+            </div>
+          </div>
+          <button id="back-btn" class="back-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15 18 9 12 15 6" />
+            </svg>
+            New Search
+          </button>
+        </div>
+
+        <!-- Tab navigation -->
+        <div class="tab-nav">
+          <button class="tab-btn active" data-tab="squad">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="7" height="7" />
+              <rect x="14" y="3" width="7" height="7" />
+              <rect x="14" y="14" width="7" height="7" />
+              <rect x="3" y="14" width="7" height="7" />
+            </svg>
+            Squad
+          </button>
+          <button class="tab-btn" data-tab="suggestions">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="17 1 21 5 17 9" />
+              <path d="M3 11V9a4 4 0 0 1 4-4h14" />
+              <polyline points="7 23 3 19 7 15" />
+              <path d="M21 13v2a4 4 0 0 1-4 4H3" />
+            </svg>
+            Transfers
+          </button>
+          <button class="tab-btn" data-tab="stats">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="20" x2="18" y2="10" />
+              <line x1="12" y1="20" x2="12" y2="4" />
+              <line x1="6" y1="20" x2="6" y2="14" />
+            </svg>
+            Stats
+          </button>
+        </div>
+
+        <!-- Tab panels -->
+        <div class="tab-panels">
+
+          <!-- Squad tab -->
+          <div class="tab-panel" data-tab="squad">
+            <div id="squad-list"></div>
           </div>
 
-          <div class="suggestions-container glass-panel">
-            <h2>Improvement Suggestions</h2>
-            <div id="suggestions-list" class="suggestion-list">
-              <!-- Suggestions will be injected here -->
-              <p class="placeholder-text">Select a player to see replacement options.</p>
-            </div>
+          <!-- Suggestions tab -->
+          <div class="tab-panel hidden" data-tab="suggestions">
+            <div id="suggestions-list" class="suggestions-list"></div>
           </div>
+
+          <!-- Stats tab -->
+          <div class="tab-panel hidden" data-tab="stats">
+            <div id="stats-panel" class="stats-panel"></div>
+          </div>
+
         </div>
       </section>
+
     </main>
+
+    <footer class="app-footer">
+      <p>Built with <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" stroke="none"
+          style="color:#f43f5e;vertical-align:middle">
+          <path
+            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+        </svg> for FPL managers · Data from <a href="https://fantasy.premierleague.com" target="_blank"
+          rel="noopener">fantasy.premierleague.com</a></p>
+    </footer>
+
   </div>
+
   <script type="module" src="/src/main.js"></script>
 </body>
 
